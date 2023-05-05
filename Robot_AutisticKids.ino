@@ -25,6 +25,7 @@ const int saIntermediate = 1500;  //for 90 degree
 const int saFinal = 2250;         //for around 180 degree
 
 //States for the servos
+const int sState = saInitial;
 const int sStateLeftArm = saInitial;
 const int sStateRightArm = saInitial;
 const int sStateLeftLeg = saInitial;
@@ -64,6 +65,8 @@ int dt = 500;
 
 void setup() {
 
+  Serial.begin(9600);
+
   //For Servomotors
   sLeftArm.attach(spLeftArm);
   sRightArm.attach(spRightArm);
@@ -83,6 +86,9 @@ void setup() {
   randomSeed(analogRead(A5));
   delay(2000);
   buttonFlag = random(1, 6);
+
+  Serial.println("El numero aleatorio INICIAL es: ");
+  Serial.println(buttonFlag);
 }
 
 ////////////////////////////////////////////////
@@ -159,7 +165,7 @@ void rightLegMovements() {
   }
 }
 
-void HeadMovements() {
+void headMovements() {
   // Move the servo of 0 to 180 dregrees
   for (int pos = saInitial; pos <= saFinal; pos += 15) {
     sHead.write(pos);
@@ -173,11 +179,11 @@ void HeadMovements() {
   }
 }
 
-void bothArmsCombinationMovements(){
+void bothArmsCombinationMovements() {
   // Move the servo of 0 to 180 dregrees
   for (int pos = saInitial; pos <= saFinal; pos += 15) {
     sLeftArm.write(pos);
-    sRightArm.write(pos);    
+    sRightArm.write(pos);
     delay(15);
   }
 
@@ -191,7 +197,91 @@ void bothArmsCombinationMovements(){
 
 void loop() {
 
-  leftArmMovements();
+  /*leftArmMovements();
   rightArmMovements();
-  bothArmsCombinationMovements();
+  bothArmsCombinationMovements();*/
+
+  //these IFs verify the status of the button and servo for its operation
+  if (buttonNew == 0 && buttonOld == 1) {
+
+    if (sStateLeftArm == 0 && buttonFlag == 1) {
+      leftArmMovements();
+      buttonFlag = random(1, 7);
+      delay(dtI);
+    } else if (sState == 0 && buttonFlag == 2) {
+      rightArmMovements();
+      buttonFlag = random(1, 7);
+      delay(dtI);
+    } else if (sState == 0 && buttonFlag == 3) {
+      leftLegMovements();
+      buttonFlag = random(1, 7);
+      delay(dtI);
+    } else if (sState == 0 && buttonFlag == 5) {
+      rightLegMovements();
+      buttonFlag = random(1, 7);
+      delay(dtI);
+    } else if (sState == 0 && buttonFlag == 4) {
+      headMovements();
+      buttonFlag = random(1, 7);
+      delay(dtI);
+    } else if (sState == 0 && buttonFlag == 5) {
+      bothArmsCombinationMovements();
+      buttonFlag = random(1, 7);
+      delay(dtI);
+    }
+
+
+    /*
+    switch (buttonFlag) {
+      case 1:
+        leftArmMovements();
+        buttonFlag = random(1, 7);
+        Serial.print("El numero aleatorio es: ");
+        Serial.println(buttonFlag);
+        delay(dtI);
+        //break;
+
+      case 2:
+        rightArmMovements();
+        buttonFlag = random(1, 7);
+        Serial.print("El numero aleatorio es: ");
+        Serial.println(buttonFlag);
+        delay(dtI);
+        //break;
+
+      case 3:
+        leftLegMovements();
+        buttonFlag = random(1, 7);
+        Serial.print("El numero aleatorio es: ");
+        Serial.println(buttonFlag);
+        delay(dtI);
+        //break;
+
+      case 4:
+        rightLegMovements();
+        buttonFlag = random(1, 7);
+        Serial.print("El numero aleatorio es: ");
+        Serial.println(buttonFlag);      
+        delay(dtI);
+        //break;
+
+      case 5:
+        headMovements();
+        buttonFlag = random(1, 7);
+        Serial.print("El numero aleatorio es: ");
+        Serial.println(buttonFlag);
+        delay(dtI);
+        //break;
+
+      case 6:
+        bothArmsCombinationMovements();
+        buttonFlag = random(1, 7);
+        Serial.print("El numero aleatorio es: ");
+        Serial.println(buttonFlag);
+        delay(dtI);
+        //break;
+    }
+    */
+  }
+  buttonOld = buttonNew;
 }
