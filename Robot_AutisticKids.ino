@@ -67,7 +67,7 @@ void setup() {
   //For Servomotors
   sLeftArm.attach(spLeftArm);
   sRightArm.attach(spRightArm);
-  sLeftLeg.attach(sLeftLeg);
+  sLeftLeg.attach(spLeftLeg);
   sRightLeg.attach(spRightLeg);
   sHead.attach(spHead);
 
@@ -85,8 +85,62 @@ void setup() {
   buttonFlag = random(1, 6);
 }
 
+////////////////////////////////////////////////
+///////////         Funtions        ///////////
+//////////////////////////////////////////////
 
+void leftArmMovements() {
+  /*
+  sLeftArm.write(saInitial);
+  delay(dt);
+  myServo2.write(saIntermediate);
+  delay(dt);
+  myServo2.write(saFinal);
+  delay(dt);
+  myServo2.write(saIntermediate);
+  delay(dt);
+  myServo2.write(saInitial);
+  delay(dt);
+  */
 
-void loop() {
-  // put your main code here, to run repeatedly:
+  // Move the servo of 0 to 180 dregrees
+  for (int pos = saInitial; pos <= saFinal; pos += 15) {
+    sLeftArm.write(pos);
+    delay(15);
+  }
+
+  // Move the servo of 180 to 0 dregrees
+  for (int pos = saFinal; pos >= saInitial; pos -= 15) {
+    sLeftArm.write(pos);
+    delay(15);
+  }
 }
+/*
+  void rightArmMovements() {
+    sLeftArm.write(saInitial);
+    delay(dt);
+    myServo2.write(saIntermediate);
+    delay(dt);
+    myServo2.write(saFinal);
+    delay(dt);
+    myServo2.write(saIntermediate);
+    delay(dt);
+    myServo2.write(saInitial);
+    delay(dt);
+  }
+  */
+/*
+  void leftLegMovements() {
+  }
+
+  void rightLegLegMovements() {
+  }
+
+  void HeadMovements() {
+  }
+*/
+  void loop() {
+    
+    leftArmMovements();
+
+  }
