@@ -33,22 +33,34 @@ const int sStateHead = saInitial;
 
 //---------------------------------------
 
-int buttonOnOffPin = 2;
-int ledRedPin = 4;
-int ledGreenPin = 8;
+//Variables for Switch
 
-int buttonPin = 6;
+const int switchP = 7; //Pin for switch
+//only for test //these are optional for this moment
+const int ledRedP = 2; //off
+const int ledGreenP = 2; //on
+
+// Variables for Button
+const int buttonP = 8; //Pin for button
+
+//States for the buttons
 int buttonOld = 1;
 int buttonNew;
 
+//Flag for button
+int buttonFlag = 1;
+
+//create ezButton object for Switch
+ezButton toggleSwitch(switchP); 
+
+//---------------------------------------
+//times por daleys
 int dtI = 100;
 int dt = 500;
 
-int buttonFlag = 1;
-//int buttonFlag;
-//int aleatorio;
-
-ezButton toggleSwitch(buttonOnOffPin);  // create ezButton object that attach to pin 7;
+///////////////////////////////////////////////
+///////////                        ///////////
+//////////////////////////////////////////////
 
 void setup() {
   // put your setup code here, to run once:
