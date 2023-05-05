@@ -115,32 +115,83 @@ void leftArmMovements() {
     delay(15);
   }
 }
-/*
-  void rightArmMovements() {
-    sLeftArm.write(saInitial);
-    delay(dt);
-    myServo2.write(saIntermediate);
-    delay(dt);
-    myServo2.write(saFinal);
-    delay(dt);
-    myServo2.write(saIntermediate);
-    delay(dt);
-    myServo2.write(saInitial);
-    delay(dt);
-  }
-  */
-/*
-  void leftLegMovements() {
+
+void rightArmMovements() {
+  // Move the servo of 0 to 180 dregrees
+  for (int pos = saInitial; pos <= saFinal; pos += 15) {
+    sRightArm.write(pos);
+    delay(15);
   }
 
-  void rightLegLegMovements() {
+  // Move the servo of 180 to 0 dregrees
+  for (int pos = saFinal; pos >= saInitial; pos -= 15) {
+    sRightArm.write(pos);
+    delay(15);
+  }
+}
+
+
+void leftLegMovements() {
+  // Move the servo of 0 to 180 dregrees
+  for (int pos = saInitial; pos <= saFinal; pos += 15) {
+    sLeftLeg.write(pos);
+    delay(15);
   }
 
-  void HeadMovements() {
+  // Move the servo of 180 to 0 dregrees
+  for (int pos = saFinal; pos >= saInitial; pos -= 15) {
+    sLeftLeg.write(pos);
+    delay(15);
   }
-*/
-  void loop() {
-    
-    leftArmMovements();
+}
 
+void rightLegMovements() {
+  // Move the servo of 0 to 180 dregrees
+  for (int pos = saInitial; pos <= saFinal; pos += 15) {
+    sRightLeg.write(pos);
+    delay(15);
   }
+
+  // Move the servo of 180 to 0 dregrees
+  for (int pos = saFinal; pos >= saInitial; pos -= 15) {
+    sRightLeg.write(pos);
+    delay(15);
+  }
+}
+
+void HeadMovements() {
+  // Move the servo of 0 to 180 dregrees
+  for (int pos = saInitial; pos <= saFinal; pos += 15) {
+    sHead.write(pos);
+    delay(15);
+  }
+
+  // Move the servo of 180 to 0 dregrees
+  for (int pos = saFinal; pos >= saInitial; pos -= 15) {
+    sHead.write(pos);
+    delay(15);
+  }
+}
+
+void bothArmsCombinationMovements(){
+  // Move the servo of 0 to 180 dregrees
+  for (int pos = saInitial; pos <= saFinal; pos += 15) {
+    sLeftArm.write(pos);
+    sRightArm.write(pos);    
+    delay(15);
+  }
+
+  // Move the servo of 180 to 0 dregrees
+  for (int pos = saFinal; pos >= saInitial; pos -= 15) {
+    sLeftArm.write(pos);
+    sRightArm.write(pos);
+    delay(15);
+  }
+}
+
+void loop() {
+
+  leftArmMovements();
+  rightArmMovements();
+  bothArmsCombinationMovements();
+}
